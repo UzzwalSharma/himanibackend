@@ -41,6 +41,8 @@ app.use("/api/v1/order", orderRoute);
 // Server start and DB connection
 console.log("Connecting to DB...");
 
+console.log("MONGO_URI =>", process.env.MONGO_URI); // TEMPORARY FOR DEBUGGING
+
 connectDb()
   .then(() => {
     app.listen(port, () => {
