@@ -6,7 +6,8 @@
     "dev": "nodemon --exec ts-node index.ts",
     "stripe": "stripe listen --forward-to localhost:8000/api/v1/order/webhook",
     "build": "npm install --production=false && cd client && npm install --production=false && npm run build",
-    "start": "ts-node --log-error index.ts"
+   "start": "NODE_OPTIONS=--max-old-space-size=1024 ts-node --log-error index.ts"
+
   },
   "keywords": [],
   "author": "",

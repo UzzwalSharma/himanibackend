@@ -48,6 +48,7 @@ if (process.env.NODE_ENV === "production") {
 }
 
 // Server start and DB connection
+console.log("Connecting to DB...");
 
 connectDb()
   .then(() => {
