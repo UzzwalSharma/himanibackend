@@ -12,24 +12,24 @@ import orderRoute from "./routes/order.route";
 import cors from "cors";
 import path from "path";
 
-
 const app = express();
-const PORT = process.env.PORT || 3000;
+const port = process.env.PORT || 3000;
 // Add this right after your middleware setup
-app.disable('strict routing');
-app.set('strict routing', false);
-const DIRNAME=path.resolve();
+app.disable("strict routing");
+app.set("strict routing", false);
+const DIRNAME = path.resolve();
 
 // Middleware
-app.use(bodyParser.json({ limit: '10mb' }));
-app.use(express.urlencoded({ extended: true, limit: '10mb' }));
+app.use(bodyParser.json({ limit: "10mb" }));
+app.use(express.urlencoded({ extended: true, limit: "10mb" }));
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors({
-  origin: "https://desizayka.vercel.app", // ✅ no trailing slash
-  credentials: true, // if using cookies
-}));
-
+app.use(
+  cors({
+    origin: "https://desizayka.vercel.app", //
+    credentials: true, // if using cookies
+  })
+);
 
 // Routes
 app.use("/api/v1/user", userRoute);
@@ -39,21 +39,20 @@ app.use("/api/v1/order", orderRoute);
 
 // Serve static files from Vite build (client/dist) in production
 if (process.env.NODE_ENV === "production") {
-    app.use(express.static(path.join(DIRNAME, "../client/dist")));
+  app.use(express.static(path.join(DIRNAME, "../client/dist")));
 
-// Fallback to index.html for SPA routing
-app.get("*", (req, res) => {
-  res.sendFile(path.join(DIRNAME, "../client/dist/index.html"));
-});
+  // Fallback to index.html for SPA routing
+  app.get("*", (req, res) => {
+    res.sendFile(path.join(DIRNAME, "../client/dist/index.html"));
+  });
 }
 
-
 // Server start and DB connection
-// console.log(process.env.STRIPE_SECRET_KEY);
+
 connectDb()
   .then(() => {
-    app.listen(PORT, () => {
-      console.log(`Server listening at port ${PORT}`);
+    app.listen(port, () => {
+      console.log(`Server listening at port ${port}`);
     });
   })
   .catch((error) => {
